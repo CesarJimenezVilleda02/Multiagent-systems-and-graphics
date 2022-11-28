@@ -5,9 +5,9 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
 import json
+from model import road_model as Model
 
 class Server(BaseHTTPRequestHandler):
-    
     def _set_response(self):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
