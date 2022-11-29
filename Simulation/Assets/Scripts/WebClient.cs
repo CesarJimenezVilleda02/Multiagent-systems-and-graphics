@@ -32,9 +32,7 @@ public class WebClient : MonoBehaviour
             else
             {
                 Debug.Log(www.downloadHandler.text);    // Answer from Python
-                Vector3 tPos = JsonUtility.FromJson<Vector3>(www.downloadHandler.text.Replace('\'', '\"'));
-                //Debug.Log("Form upload complete!");
-                Debug.Log(tPos);
+                CJsonResponse state = JsonUtility.FromJson<CJsonResponse>(www.downloadHandler.text);
             }
         }
 

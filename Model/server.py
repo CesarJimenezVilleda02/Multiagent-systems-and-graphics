@@ -5,7 +5,19 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
 import json
-from model import road_model as Model
+from model import Road_model
+
+MAX_GENERATIONS = 200
+number_road = 3
+road_length = 100
+
+model = Road_model(road_length, number_road)
+
+def state_to_JSON():
+    model.step()
+    all_agents = model.datacollector_server.get_model_vars_dataframe()
+    state = all_agents.iloc[-1][0]
+    return json.dumps(state)
 
 class Server(BaseHTTPRequestHandler):
     def _set_response(self):
@@ -19,27 +31,18 @@ class Server(BaseHTTPRequestHandler):
         self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
 
     def do_POST(self):
-        content_length = int(self.headers['Content-Length'])
+        # content_length = int(self.headers['Content-Length'])
         #post_data = self.rfile.read(content_length)
-        post_data = json.loads(self.rfile.read(content_length))
+        # post_data = json.loads(self.rfile.read(content_length))
         #logging.info("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n",
                      #str(self.path), str(self.headers), post_data.decode('utf-8'))
-        logging.info("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n",
-                     str(self.path), str(self.headers), json.dumps(post_data))
+        # logging.info("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n",
+        #              str(self.path), str(self.headers), json.dumps(post_data))
         
-        x = post_data['x'] * 2
-        y = post_data['y'] * 2
-        z = post_data['z'] * 2
-        
-        position = {
-            "x" : x,
-            "y" : y,
-            "z" : z
-        }
-
+        # Send data
         self._set_response()
-        #self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
-        self.wfile.write(str(position).encode('utf-8'))
+        resp = "{\"data\":" + state_to_JSON() + "}"
+        self.wfile.write(resp.encode('utf-8'))
 
 
 def run(server_class=HTTPServer, handler_class=Server, port=8585):
@@ -53,6 +56,11 @@ def run(server_class=HTTPServer, handler_class=Server, port=8585):
         pass
     httpd.server_close()
     logging.info("Stopping httpd...\n")
+
+print(state_to_JSON())
+print(state_to_JSON())
+print(state_to_JSON())
+print(state_to_JSON())
 
 if __name__ == '__main__':
     from sys import argv
