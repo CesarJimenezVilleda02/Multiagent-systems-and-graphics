@@ -5,7 +5,10 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
 import json
-from model import Road_model
+# import initial_car_agent, initial_data_collector, initial_model, states
+from initial_car_agent import Car_agent
+from initial_model import Road_model
+from states import state
 
 MAX_GENERATIONS = 200
 number_road = 3
