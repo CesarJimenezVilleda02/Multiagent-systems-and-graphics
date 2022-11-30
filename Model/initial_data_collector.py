@@ -47,8 +47,8 @@ def get_grid_server(model):
       "id": agent.unique_id, 
       "state": agent.state.name, 
       "speed": agent.speed, 
-      "x": agent.pos[0], 
-      "z": agent.pos[1]
+      "x": agent.pos[1], 
+      "z": agent.pos[0]
     }
     agents.append(agent_obj)
   return agents

@@ -38,7 +38,7 @@ import datetime
 import initial_model, states, initial_data_collector
 # from initial_data_collector import get_grid_server, get_grid
 # from initial_model import Road_model
-# from states import state
+from states import state
 
 class Car_agent(Agent):
   def __init__(self, unique_id, model):

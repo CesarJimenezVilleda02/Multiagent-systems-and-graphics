@@ -4,27 +4,29 @@ using UnityEngine;
 
 public class CarManager : MonoBehaviour
 {
-    public Vector3 speed;
-
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-         transform.Translate(speed * Time.deltaTime);
+
     }
 
-    void ChangeSpeed(Vector3 newSpeed) 
+    public IEnumerator MoveCar(float timeToMove, Vector3 targetPos)
     {
-        speed = newSpeed;
-    }
+        Vector3 currentPos = transform.position;
 
-    void Accelerate(Vector3 acceleration) 
-    {
-        speed += acceleration;
+        float timeElapsed = 0;
+
+        while (timeElapsed < timeToMove)
+        {
+            transform.position = Vector3.Lerp(currentPos, targetPos, timeElapsed / timeToMove);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
     }
 }

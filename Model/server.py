@@ -60,11 +60,6 @@ def run(server_class=HTTPServer, handler_class=Server, port=8585):
     httpd.server_close()
     logging.info("Stopping httpd...\n")
 
-print(state_to_JSON())
-print(state_to_JSON())
-print(state_to_JSON())
-print(state_to_JSON())
-
 if __name__ == '__main__':
     from sys import argv
     
