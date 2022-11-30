@@ -26,17 +26,17 @@ from enum import Enum
 import time
 import datetime
 
-import initial_car_agent, states, initial_model
+import final_car_agent, states, final_model
 
 def get_grid_server(model):
   agents = []
   for agent in model.schedule.agents:
     agent_obj = {
       "id": agent.unique_id, 
-      "state": agent.state.name, 
+      "state": agent.state, 
       "speed": agent.speed, 
-      "x": agent.pos[1], 
-      "z": agent.pos[0]
+      "x": agent.pos[0], 
+      "z": agent.pos[1]
     }
     agents.append(agent_obj)
   return agents
@@ -60,20 +60,22 @@ def get_grid(model):
       else:
         content = model.grid[x][y]
         # color by state of car
-        if content.state == states.state.STOP:
+        if content.state == state.STOP:
           grid[x][y] = color_map[2]
-        elif content.state == states.state.ADVANCE:
+        elif content.state == state.ADVANCE:
           grid[x][y] = color_map[3]
-        elif content.state == states.state.MOVE_RIGHT:
+        elif content.state == state.MOVE_RIGHT:
           grid[x][y] = color_map[4]
-        elif content.state == states.state.MOVE_LEFT:
+        elif content.state == state.MOVE_LEFT:
           grid[x][y] = color_map[4]
-        elif content.state == states.state.BREAK:
+        elif content.state == state.BREAK:
           grid[x][y] = color_map[5]
-        elif content.state == states.state.DECELERATE:
+        elif content.state == state.DECELERATE:
           grid[x][y] = color_map[6]
-        elif content.state == states.state.ACCELERATE:
+        elif content.state == state.ACCELERATE:
           grid[x][y] = color_map[7]
-        elif content.state == states.state.ELIMINATE:
+        elif content.state == state.ELIMINATE:
+          grid[x][y] = color_map[8]
+        elif content.state == state.SPAWN:
           grid[x][y] = color_map[8]
   return grid

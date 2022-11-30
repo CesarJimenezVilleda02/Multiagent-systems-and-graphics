@@ -26,7 +26,7 @@ from enum import Enum
 import time
 import datetime
 
-import initial_car_agent, states, initial_data_collector
+import final_car_agent, states, final_data_collector
 
 class Road_model(Model):
   def __init__(self, road_length, number_road):
@@ -38,13 +38,19 @@ class Road_model(Model):
     self.step_number = 0;
     self.to_remove = []
     self.max_speeds = []
+    self.finished_cars=0
+    self.total_moves=0
+    self.total_stops=0
+    self.speeds = np.zeros((self.number_road,self.road_length))
 
-    self.datacollector_graphic = DataCollector(model_reporters={"Grid": initial_data_collector.get_grid})
-    self.datacollector_server = DataCollector(model_reporters={"Agents": initial_data_collector.get_grid_server})
+    self.datacollector_graphic = DataCollector(model_reporters={"Grid": final_data_collector.get_grid})
+    self.datacollector_server = DataCollector(model_reporters={"Agents": final_data_collector.get_grid_server})
 
     # Initialize lane max speeds
     for i in range(self.number_road):
       self.max_speeds.append(self.number_road - i)
+      for j in range(self.road_length):
+        self.speeds[i][j] = self.number_road - i
 
   def remove_cars(self):
     for i in range(len(self.to_remove)):
@@ -54,7 +60,7 @@ class Road_model(Model):
     self.to_remove = []
 
   def generate_new_car(self, road):
-      a = initial_car_agent.Car_agent(self.car_id, self)
+      a = Car_agent(self.car_id, self)
       # generate the car position
       self.grid.place_agent(a, (road, 0))
       self.schedule.add(a)
