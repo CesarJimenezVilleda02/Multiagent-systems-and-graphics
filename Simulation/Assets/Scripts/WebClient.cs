@@ -8,6 +8,9 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
+/// <summary>
+/// Class used to request new states to the server.
+/// </summary>
 public class WebClient : MonoBehaviour
 {
     public GameObject trafficManager;
@@ -16,7 +19,11 @@ public class WebClient : MonoBehaviour
     public int max_steps = 200;
     public int curr_steps = 0;
 
-    // IEnumerator - yield return
+    /// <summary>
+    /// Send a request for a new state to the server and change the state of the cars.
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
     IEnumerator SendData(string data)
     {
         System.DateTime start;

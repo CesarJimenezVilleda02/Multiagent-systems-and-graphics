@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class used to spawn zombies in the game.
+/// </summary>
 public class SpawnManager : MonoBehaviour
 {
     // Zombie spawning
@@ -27,12 +30,18 @@ public class SpawnManager : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Generate a new zombie at the left of the highway.
+    /// </summary>
     void GenerateZombieLeft()
     {
         Vector3 position = new Vector3(spawnPos, 0, Random.Range(startZombieRangeLeft, endZombieRangeLeft));
         Instantiate(zombie, position, zombie.transform.rotation);
     }
-    
+
+    /// <summary>
+    /// Generate a new zombie at the right of the highway.
+    /// </summary>
     void GenerateZombieRight()
     {
         Vector3 position = new Vector3(spawnPos, 0, Random.Range(startZombieRangeRight, endZombieRangeRight));

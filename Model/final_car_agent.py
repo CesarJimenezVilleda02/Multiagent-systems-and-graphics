@@ -53,14 +53,14 @@ class Car_agent(Agent):
     # Contiguos cars cannot break and a car in the simulation will break after two minutes
     if chance == 0 and self.model.step_number > 40 and self.model.road_length / 3 < self.pos[1]:
       self.engine_fail()
-      return self.generate_car_state()
+      return
 
     # Car is broken so we dont perform any other action
     if self.state == states.state.BREAK:
       if self.speed > 0:
         self.speed -= 1
         self.move()
-      return self.generate_car_state()
+      return
     
     # TURNING
     # We check if the car is currently waiting in line and if it is at the front, we make it try to turn, else it waits
@@ -68,29 +68,29 @@ class Car_agent(Agent):
       if self.can_move_sides():
         self.move_sides()
         self.speed = 0
-        return self.generate_car_state()
+        return
     
     # MOVING
     if self.can_accelerate():
       self.accelerate()
       if self.speed == self.max_speed:
         self.state = states.state.ADVANCE
-        return self.generate_car_state()
+        return
     elif self.has_to_decelerate():
       self.decelerate()
       if self.speed == 0:
         self.state = states.state.STOP
         self.model.total_stops+=1
-        return self.generate_car_state()
+        return
     
     if self.can_move():
       self.move()
-      return self.generate_car_state()
+      return
     else:
       self.speed = 0
       self.state = states.state.STOP
       self.model.total_stops+=1
-      return self.generate_car_state()
+      return
 
   def advance(self):
     if self.state == states.state.ELIMINATE:
@@ -98,11 +98,6 @@ class Car_agent(Agent):
       self.model.total_moves+= self.moves
 
       self.road_end()
-
-  # GENERATE CAR STATE OBJECT
-  def generate_car_state(self):
-    # self.actual_car = Car(self.state,self.pos[0],self.pos[1],self.unique_id,self.speed)
-    return
 
   # CAR IS ELIMINATED FROM SIMULATION
   def road_end(self):

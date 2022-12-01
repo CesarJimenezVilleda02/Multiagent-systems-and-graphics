@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class used to generate the highway the cars will traverse.
+/// </summary>
 public class GenerateHighway : MonoBehaviour
 {
     public GameObject highwayPrefab;

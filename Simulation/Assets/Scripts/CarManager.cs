@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class used to contorl the cars and their movements.
+/// </summary>
 public class CarManager : MonoBehaviour
 {
     float timePassed = 0;
@@ -24,6 +27,12 @@ public class CarManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Create a smoke effect when a car breaks and move the main camera to a spectating position.
+    /// </summary>
+    /// <param name="camera"></param>
+    /// <param name="tornado"></param>
+    /// <param name="speed"></param>
     public void Break(GameObject camera, GameObject tornado, int speed)
     {
         if(!broken)
@@ -39,6 +48,12 @@ public class CarManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Start moving the car to a new position through an interval of time.
+    /// </summary>
+    /// <param name="timeToMove"></param>
+    /// <param name="targetPos"></param>
+    /// <returns></returns>
     public IEnumerator MoveCar(float timeToMove, Vector3 targetPos)
     {
         timePassed = 0.0f;
