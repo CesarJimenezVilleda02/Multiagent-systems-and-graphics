@@ -10,6 +10,7 @@ public class TrafficManager : MonoBehaviour
     public Dictionary<int, GameObject> cars = new Dictionary<int, GameObject>();
     public GameObject car;
     public GameObject camera;
+    public GameObject tornado;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +38,7 @@ public class TrafficManager : MonoBehaviour
                 StartCoroutine(manager.MoveCar(timePerStep, targetPos));
                 if(car.state == "BREAK")
                 {
-                    manager.Break(camera);
+                    manager.Break(camera, tornado, car.speed);
                 }
             }
             else if (car.state == "SPAWN" && !cars.ContainsKey(car.id))

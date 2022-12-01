@@ -6,6 +6,7 @@ public class CarManager : MonoBehaviour
 {
     float timePassed = 0;
     bool broken = false;
+    bool hasTornado = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,14 +24,19 @@ public class CarManager : MonoBehaviour
         }
     }
 
-    public void Break(GameObject camera)
+    public void Break(GameObject camera, GameObject tornado, int speed)
     {
-        if(broken)
+        if(!broken)
         {
+            broken = true;
             return;
         }
-        broken = true;
-        camera.transform.Translate(transform.position.x, camera.transform.position.y, 0);
+        if (speed == 0 && hasTornado == false)
+        {
+            hasTornado = true;
+            camera.transform.position = new Vector3(transform.position.x, 75, transform.position.y);
+            Instantiate(tornado, transform.position, tornado.transform.rotation);
+        }
     }
 
     public IEnumerator MoveCar(float timeToMove, Vector3 targetPos)

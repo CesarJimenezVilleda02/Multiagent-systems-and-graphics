@@ -899,6 +899,7 @@ MonoBehaviour:
   distanceMultiplier: 30
   car: {fileID: 7478660262619224569, guid: ba84e06b10bda5645a1c976a516e7011, type: 3}
   camera: {fileID: 963194225}
+  tornado: {fileID: 1865603112017772757, guid: 0f059e5d480c814408dc615079587fad, type: 3}
 --- !u!4 &675894416
 Transform:
   m_ObjectHideFlags: 0
