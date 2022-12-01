@@ -60,7 +60,7 @@ class Road_model(Model):
     self.to_remove = []
 
   def generate_new_car(self, road):
-      a = Car_agent(self.car_id, self)
+      a = final_car_agent.Car_agent(self.car_id, self)
       # generate the car position
       self.grid.place_agent(a, (road, 0))
       self.schedule.add(a)

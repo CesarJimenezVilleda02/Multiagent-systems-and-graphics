@@ -19,9 +19,11 @@ public class WebClient : MonoBehaviour
     // IEnumerator - yield return
     IEnumerator SendData(string data)
     {
-        while(curr_steps < max_steps)
+        System.DateTime start;
+        System.DateTime end;
+        float totalDuration = 0;
+        while (curr_steps < max_steps)
         {
-
             WWWForm form = new WWWForm();
             form.AddField("bundle", "the data");
             string url = "http://localhost:8585";
@@ -33,7 +35,7 @@ public class WebClient : MonoBehaviour
                 //www.SetRequestHeader("Content-Type", "text/html");
                 www.SetRequestHeader("Content-Type", "application/json");
 
-                System.DateTime start = System.DateTime.Now;
+                start = System.DateTime.Now;
                 yield return www.SendWebRequest();          // Talk to Python
                 if (www.isNetworkError || www.isHttpError)
                 {
@@ -41,17 +43,18 @@ public class WebClient : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log(www.downloadHandler.text);    // Answer from Python
+                    // Debug.Log(www.downloadHandler.text);    // Answer from Python
                     CJsonResponse state = JsonUtility.FromJson<CJsonResponse>(www.downloadHandler.text);
+                    yield return new WaitForSeconds(timePerStep - totalDuration);
                     manager.UpdateCars(state, timePerStep);
                 }
-                System.DateTime end = System.DateTime.Now;
+                end = System.DateTime.Now;
+                // Calculate time to next activation
                 System.TimeSpan elapsedTime = end - start;
                 int seconds, milliseconds;
                 seconds = elapsedTime.Seconds;
                 milliseconds = elapsedTime.Milliseconds;
-                float totalDuration = (float)seconds + ((float)milliseconds / 1000);
-                yield return new WaitForSeconds(timePerStep - totalDuration);
+                totalDuration = (float)seconds + ((float)milliseconds / 1000);
             }
         }
     }

@@ -26,17 +26,18 @@ from enum import Enum
 import time
 import datetime
 
-import final_car_agent, states, final_model
+import final_car_agent, final_model
+from states import state
 
 def get_grid_server(model):
   agents = []
   for agent in model.schedule.agents:
     agent_obj = {
       "id": agent.unique_id, 
-      "state": agent.state, 
+      "state": agent.state.name, 
       "speed": agent.speed, 
-      "x": agent.pos[0], 
-      "z": agent.pos[1]
+      "x": agent.pos[1], 
+      "z": agent.pos[0]
     }
     agents.append(agent_obj)
   return agents

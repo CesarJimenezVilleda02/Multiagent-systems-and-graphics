@@ -7,7 +7,9 @@ public class TrafficManager : MonoBehaviour
     // Car variables
     private int[] lanes = { 16, 0, -16 };
     public float distanceMultiplier = 30.0f;
+    public Dictionary<int, GameObject> cars = new Dictionary<int, GameObject>();
     public GameObject car;
+    public GameObject camera;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +25,7 @@ public class TrafficManager : MonoBehaviour
 
     public void UpdateCars(CJsonResponse response, float timePerStep)
     {
+        // Update all cars according to state
         foreach (CAgent car in response.data)
         {
             if (car.state != "SPAWN")
@@ -32,8 +35,12 @@ public class TrafficManager : MonoBehaviour
                 // Start moving process
                 CarManager manager = GetCar(car.id);
                 StartCoroutine(manager.MoveCar(timePerStep, targetPos));
+                if(car.state == "BREAK")
+                {
+                    manager.Break(camera);
+                }
             }
-            else
+            else if (car.state == "SPAWN" && !cars.ContainsKey(car.id))
             {
                 CreateCar(car);
             }
@@ -45,6 +52,7 @@ public class TrafficManager : MonoBehaviour
         Vector3 position = new Vector3(0, 0, lanes[agent.z]);
         GameObject newCar = (GameObject)Instantiate(car, position, car.transform.rotation);
         newCar.name = "Car_Agent_" + agent.id.ToString();
+        cars.Add(agent.id, newCar);
     }
 
     public CarManager GetCar(int car)

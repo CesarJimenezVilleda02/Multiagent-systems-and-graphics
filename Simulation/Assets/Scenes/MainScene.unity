@@ -896,7 +896,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 420404c42f2edaa4aadbaf3fa6b93fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceMultiplier: 30
   car: {fileID: 7478660262619224569, guid: ba84e06b10bda5645a1c976a516e7011, type: 3}
+  camera: {fileID: 963194225}
 --- !u!4 &675894416
 Transform:
   m_ObjectHideFlags: 0
@@ -1516,14 +1518,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &972015156 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6471746444181657990, guid: 59b18c28c4d575d439cb7ee3cc11a5d3, type: 3}
@@ -1808,6 +1810,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trafficManager: {fileID: 675894414}
   manager: {fileID: 0}
+  timePerStep: 2
+  max_steps: 200
+  curr_steps: 0
 --- !u!4 &1231064028
 Transform:
   m_ObjectHideFlags: 0
@@ -1832,6 +1837,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1245649655}
+  - component: {fileID: 1245649656}
   m_Layer: 0
   m_Name: HumanRight
   m_TagString: Untagged
@@ -1872,6 +1878,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1245649656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245649654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92999e3f729494f46b766739a30382cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1290960412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2305,6 +2323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1653477011}
+  - component: {fileID: 1653477012}
   m_Layer: 0
   m_Name: HumanLeft
   m_TagString: Untagged
@@ -2345,6 +2364,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1653477012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653477010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92999e3f729494f46b766739a30382cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1679936873 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4103169234802893452, guid: cb9080af5e9ca184b92bc6aa8a423c17, type: 3}
